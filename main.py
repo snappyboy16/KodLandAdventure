@@ -1,5 +1,6 @@
 import pgzrun
 from pgzero.constants import mouse
+from pgzero.loaders import sounds
 
 import menu
 
@@ -8,15 +9,16 @@ HEIGHT = 480
 TITLE = "Kodland Adventures"
 
 state = 'menu'
-music = False
-sounds = False
+music = True
+music_playing = False
+sound = True
 
 
 def draw():
     if state == 'menu':
         menu.draw_main_menu()
     elif state == 'settings':
-        menu.draw_settings_menu(music, sounds)
+        menu.draw_settings_menu(music, sound)
     elif state == 'faq':
         pass
     elif state == 'exit':
@@ -28,8 +30,9 @@ def draw():
 
 
 def on_mouse_down(button, pos):
-    global state, music, sounds
+    global state, music, sound
     if button == mouse.LEFT:
+        sounds.load('button/click_button.mp3').play() if sound else False
         print(pos)
         print(state)
         if state == 'menu':
@@ -48,20 +51,28 @@ def on_mouse_down(button, pos):
                 music = True
             elif music and menu.off_music_btn.collidepoint(pos):
                 music = False
-            elif not sounds and menu.on_sounds_btn.collidepoint(pos):
-                sounds = True
+            elif not sound and menu.on_sounds_btn.collidepoint(pos):
+                sound = True
             elif sounds and menu.off_sounds_btn.collidepoint(pos):
-                sounds = False
+                sound = False
             elif menu.close_btn.collidepoint(pos):
                 state = 'menu'
 
 
+def on_music_off():
+    global music_playing
+    if music and not music_playing:
+        sounds.load("background_music.mp3").play(-1)
+        music_playing = True
+    elif not music and music_playing:
+        sounds.load('background_music.mp3').stop()
+        music_playing = False
+
+
 def update(dt):
-    if music:
-        if sounds:
-            pass
-        else:
-            pass
+    on_music_off()
+    if sound:
+        pass
     else:
         pass
 
