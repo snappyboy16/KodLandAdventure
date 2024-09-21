@@ -1,7 +1,10 @@
 from pgzero.actor import Actor
+from hero import Hero
+from enemy import Alien, Bat
 
-hero = Actor('hero/player_idle_right', (105, 355))
-alien = Actor('enemy/alien/alien_green_left', (730, 368))
+hero = Hero()
+alien = Alien()
+bat = Bat()
 background_menu_day = Actor('menu/background/menu_background_day')
 start_btn = Actor('menu/button/start_btn', (400, 200))
 settings_btn = Actor('menu/button/settings_btn', (400, 300))

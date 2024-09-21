@@ -1,7 +1,8 @@
+import random
 import pgzrun
 from pgzero.constants import mouse
 from pgzero.loaders import sounds
-
+from pgzero.keyboard import keyboard
 import menu
 
 WIDTH = 800
@@ -9,9 +10,10 @@ HEIGHT = 480
 TITLE = "Kodland Adventures"
 
 state = 'menu'
-music = True
+music = False
 music_playing = False
 sound = True
+books = []
 
 
 def draw():
@@ -44,6 +46,8 @@ def on_mouse_down(button, pos):
                 state = 'settings'
             elif menu.exit_btn.collidepoint(pos):
                 state = 'exit'
+            elif menu.hero.hero.collidepoint(pos):
+                pass
         elif state == 'settings':
             if menu.faq_btn.collidepoint(pos):
                 state = 'faq'
@@ -68,13 +72,23 @@ def on_music_off():
         sounds.load('background_music.mp3').stop()
         music_playing = False
 
-
 def update(dt):
     on_music_off()
     if sound:
-        pass
+        menu.hero.move(keyboard, sound)
+        menu.alien.move()
+        menu.bat.move()
+        for bullet in menu.hero.bullets:
+            if bullet.angle == 0:
+                bullet.x = bullet.x + 5
+            elif bullet.angle == 90:
+                bullet.y = bullet.y - 5
+            elif bullet.angle == 180:
+                bullet.x = bullet.x - 5
+            elif bullet.angle == 270:
+                bullet.y = bullet.y + 5
     else:
-        pass
+        menu.hero.animate_idle()
 
 
 pgzrun.go()
