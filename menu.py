@@ -6,6 +6,7 @@ hero = Hero()
 alien = Alien()
 bat = Bat()
 background_menu_day = Actor('menu/background/menu_background_day')
+menu_faq_day = Actor('menu/background/menu_faq_day')
 start_btn = Actor('menu/button/start_btn', (400, 200))
 settings_btn = Actor('menu/button/settings_btn', (400, 300))
 exit_btn = Actor('menu/button/exit_btn', (400, 400))
@@ -17,7 +18,7 @@ close_btn = Actor('menu/button/close_btn', (400, 400))
 faq_btn = Actor('menu/button/faq_btn', (760, 35))
 
 
-def draw_main_menu():
+def draw_main_menu():  # главное меню
     background_menu_day.draw()
     faq_btn.draw()
     start_btn.draw()
@@ -27,7 +28,7 @@ def draw_main_menu():
     alien.draw()
 
 
-def draw_settings_menu(music, sounds):
+def draw_settings_menu(music, sounds):  # меню настроек
     background_menu_day.draw()
     faq_btn.draw()
     if music:
@@ -41,3 +42,8 @@ def draw_settings_menu(music, sounds):
     close_btn.draw()
     hero.draw()
     alien.draw()
+
+
+def draw_faq_menu():  # меню faq
+    menu_faq_day.draw()
+    faq_btn.draw()
